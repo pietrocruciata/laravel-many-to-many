@@ -66,17 +66,13 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project, Request $request)
+    public function edit(Project $project)
     {
 
         $types = Type::all();
 
-        $form_data = $request->all();
-        $slug = Str::slug($form_data['name']);
-        $form_data['slug'] = $slug;
-
-        $new_project = Project::edit($form_data);
-        return view('admin.projects.edit', compact('project','types'), $new_project);
+      
+        return view('admin.projects.edit', compact('project','types'));
         
     }
 
