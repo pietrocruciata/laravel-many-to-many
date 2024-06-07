@@ -10,6 +10,12 @@
     <p><strong>SLUG:</strong> {{$project->slug}}</p>
     <p><strong>DESCRIPTION:</strong> {{$project->description}}</p>
     <p><strong>LINK GITHUB:</strong> {{$project->link_git}}</p>
+    <p><strong>TECNOLOGIE UTILIZZATE:</strong></p>
+     <ul class="d-flex gap-2 list-unstyled">
+        @foreach($project->technologies as $technology) 
+          <li>{{ $technology->name }},</li>
+        @endforeach
+      </ul> 
    
     <div class="d-flex gap-3">
         <a class="btn btn-primary" href="{{route('admin.projects.edit', $project)}}">Edit</a>

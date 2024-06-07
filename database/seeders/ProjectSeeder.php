@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Support\Str;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Faker\Generator as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +18,8 @@ class ProjectSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
+        $technologies_ids = Technology::all()->pluck('id')->all();
+
         // DB::table('projects')->truncate();
         for ($i = 0; $i < 10; $i++) {
             $new_project = new Project();
@@ -28,6 +31,9 @@ class ProjectSeeder extends Seeder
             $new_project->type_id = Type::inRandomOrder()->first()->id;
             $new_project->save();
 
+            $random_tag_ids = $faker->randomElements($technologies_ids, null);
+        
+            $new_project->technologies()->attach($random_tag_ids);
         }
     }
 }

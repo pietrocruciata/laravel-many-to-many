@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Validation\Rule;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -27,9 +28,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types'),compact('technologies'));
         
     }
 
@@ -59,7 +60,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('admin.projects.show',compact('project'));
+        $technologies = Technology::all();
+
+        return view('admin.projects.show',compact('project'),compact('technologies'));
         
     }
 
@@ -70,9 +73,10 @@ class ProjectController extends Controller
     {
 
         $types = Type::all();
+        $technologies = Technology::all();
 
       
-        return view('admin.projects.edit', compact('project','types'));
+        return view('admin.projects.edit', compact('project','types','technologies'));
         
     }
 
@@ -88,6 +92,14 @@ class ProjectController extends Controller
         $project->fill($form_data);
 
         $project->save();
+
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        } else {
+            
+            $project->technologies()->detach();
+            
+        }
 
         return view('admin.projects.show', compact('project')) ;
     }

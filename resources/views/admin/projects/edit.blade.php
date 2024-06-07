@@ -28,6 +28,25 @@
                 <input type="text" name="link_git" class="form-control" id="link_git" placeholder="link github" value="{{old('link_git',$project->link_git)}}">
             </div>
 
+            <div class="form-group mb-3">
+                <h2>Seleziona le tecnologie utilizzate</h2>
+      
+                <div class="d-flex gap-2">
+                  @foreach ($technologies as $technology)
+      
+                    <div class="form-check">
+                      <input @checked( in_array($technology->id, old('technologies',[])) ) name="technologies[]" class="form-check-input" type="checkbox" value="{{ $technology->id }}" id="technology-{{$technology->id}}">
+                      <label class="form-check-label" for="technology-{{$technology->id}}">
+                        {{ $technology->name }}
+                      </label>
+                    </div>
+                      
+                  @endforeach
+                </div>
+                
+              </div>
+
+
             <div class="mb-3">
                 <label for="type_id" class="form-label">Titolo</label>
                 <select class="form-control" name="type_id" id="type_id">
@@ -37,6 +56,8 @@
                   @endforeach
                 </select>
               </div>
+
+
 
             <button class="btn btn-primary">Edit</button>
         </form>

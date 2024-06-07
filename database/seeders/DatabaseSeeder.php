@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Technology;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,14 +16,17 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
-            'name' => 'Pietro',
-            'email' => 'pietro@gmail.com',
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Pietro',
+        //     'email' => 'pietro@gmail.com',
+        // ]);
 
         $this->call([
             TypeSeeder::class,
-            ProjectSeeder::class
+            TechnologySeeder::class,
+            ProjectSeeder::class,
+        
+            
         ]);
     }
 }
